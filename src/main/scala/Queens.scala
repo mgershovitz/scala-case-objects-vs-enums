@@ -1,47 +1,50 @@
 import enumeratum.{Enum, EnumEntry}
 
-trait Queens {
-  def getSong[T](q: T): Song
+sealed class Song(name: String)
+object Songs {
+  case object Shakira extends Song("Hips don't lie")
+  case object Beyonce extends Song("Single Ladies")
+  case object Gaga extends Song("Poker face")
 }
 
-object QueensEnum extends Enumeration with Queens {
-  val shakira: Value = Value("Shakira")
-  val beyonce: Value = Value("Beyoncé")
-  val gaga: Value = Value("Lady Gaga")
+object QueensEnum extends Enumeration{
+  val Shakira: Value = Value("Shakira")
+  val Beyonce: Value = Value("Beyoncé")
+  val Gaga: Value = Value("Lady Gaga")
 
-  override def getSong[T](q: T): Song = q match {
-    case QueensEnum.shakira => Songs.shakira
-    case QueensEnum.gaga => Songs.gaga
+  def getSong(q: QueensEnum.Value): Song = q match {
+    case QueensEnum.Shakira => Songs.Shakira
+    case QueensEnum.Gaga => Songs.Gaga
   }
 }
 
 abstract class QueensCaseObject(name: String)
-object QueensCaseObject extends Queens {
-  case object shakira extends QueensCaseObject(name = "Shakira")
-  case object beyonce extends QueensCaseObject(name = "Beyoncé")
-  case object gaga extends QueensCaseObject(name = "Lady Gaga")
+object QueensCaseObject {
+  case object Shakira extends QueensCaseObject(name = "Shakira")
+  case object Beyonce extends QueensCaseObject(name = "Beyoncé")
+  case object Gaga extends QueensCaseObject(name = "Lady Gaga")
   
-  def values: Seq[QueensCaseObject] = IndexedSeq(QueensCaseObject.shakira)
+  def values: Seq[QueensCaseObject] = IndexedSeq(QueensCaseObject.Shakira)
   
-  override def getSong[T](q: T): Song = q match {
-    case QueensCaseObject.shakira => Songs.shakira
-    case QueensCaseObject.beyonce => Songs.beyonce
-    case QueensCaseObject.gaga => Songs.gaga
+  def getSong(q: QueensCaseObject): Song = q match {
+    case QueensCaseObject.Shakira => Songs.Shakira
+    case QueensCaseObject.Beyonce => Songs.Beyonce
+    case QueensCaseObject.Gaga => Songs.Gaga
   }
 }
 
-sealed abstract class QueensEnumeratummm(name: String) extends EnumEntry
-object QueensEnumeratummm extends Enum[QueensEnumeratummm] with Queens {
-  case object shakira extends QueensEnumeratummm(name = "Shakira")
-  case object beyonce extends QueensEnumeratummm(name = "Beyoncé")
-  case object gaga extends QueensEnumeratummm(name = "Lady Gaga")
+sealed abstract class QueensEnumeratum(name: String) extends EnumEntry
+object QueensEnumeratum extends Enum[QueensEnumeratum] {
+  case object Shakira extends QueensEnumeratum(name = "Shakira")
+  case object Beyonce extends QueensEnumeratum(name = "Beyoncé")
+  case object Gaga extends QueensEnumeratum(name = "Lady Gaga")
 
-  override def values: IndexedSeq[QueensEnumeratummm] = findValues
+  override def values: IndexedSeq[QueensEnumeratum] = findValues
 
-  override def getSong[T](q: T): Song = q match {
-    case QueensEnumeratummm.shakira => Songs.shakira
-    case QueensEnumeratummm.beyonce => Songs.beyonce
-    case QueensEnumeratummm.gaga => Songs.gaga
+  def getSong[T](q: T): Song = q match {
+    case QueensEnumeratum.Shakira => Songs.Shakira
+    case QueensEnumeratum.Beyonce => Songs.Beyonce
+    case QueensEnumeratum.Gaga => Songs.Gaga
   }
 }
 
