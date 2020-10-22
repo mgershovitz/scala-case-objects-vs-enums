@@ -1,4 +1,4 @@
-import enumeratum.{Enum, EnumEntry}
+import enumeratum.values.{IntEnum, IntEnumEntry}
 
 sealed class Song(name: String)
 object Songs {
@@ -33,11 +33,11 @@ object QueensCaseObject {
   }
 }
 
-sealed abstract class QueensEnumeratum(name: String) extends EnumEntry
-object QueensEnumeratum extends Enum[QueensEnumeratum] {
-  case object Shakira extends QueensEnumeratum(name = "Shakira")
-  case object Beyonce extends QueensEnumeratum(name = "Beyoncé")
-  case object Gaga extends QueensEnumeratum(name = "Lady Gaga")
+sealed abstract class QueensEnumeratum(val value: Int, name: String) extends IntEnumEntry
+object QueensEnumeratum extends IntEnum[QueensEnumeratum] {
+  case object Shakira extends QueensEnumeratum(value = 1, name = "Shakira")
+  case object Beyonce extends QueensEnumeratum(value = 2, name = "Beyoncé")
+  case object Gaga extends QueensEnumeratum(value = 3, name = "Lady Gaga")
 
   override def values: IndexedSeq[QueensEnumeratum] = findValues
 

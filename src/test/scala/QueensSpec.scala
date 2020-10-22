@@ -38,5 +38,8 @@ class QueensSpec extends WordSpecLike{
     "Get all values" in {
       assert(QueensEnumeratum.values.size equals 3)
     }
+    "Allows to implements and guarantee order" in {
+      assert(QueensEnumeratum.Shakira.value < QueensEnumeratum.Gaga.value)
+    }
   }
 }
